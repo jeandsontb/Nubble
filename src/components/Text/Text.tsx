@@ -1,12 +1,14 @@
-import {createText} from '@shopify/restyle';
 import React from 'react';
 import {TextStyle} from 'react-native';
-import {ThemeTypes} from '../../theme/theme';
+
+import {createText} from '@shopify/restyle';
+
+import {ThemeTypes} from '@theme';
 
 const TextShopfy = createText<ThemeTypes>();
 type TextShopfyProps = React.ComponentProps<typeof TextShopfy>;
 
-interface TextDinamicProps extends TextShopfyProps {
+export interface TextDinamicProps extends TextShopfyProps {
   preset?: TextSizesVariants;
   bold?: boolean;
   italic?: boolean;

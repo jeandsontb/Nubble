@@ -1,15 +1,20 @@
 import React from 'react';
-import {BoxDinamic, TouchableOpacityDinamic} from '../Box';
-import {useAppSafeAreaCustom} from '../../hooks/useAppSafeAreaCustom';
-import {IconDinamic} from '../Icon';
-import {TextDinamic} from '../Text/Text';
 import {KeyboardAvoidingView, Platform} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
+
+import {
+  BoxDinamic,
+  IconDinamic,
+  TextDinamic,
+  TouchableOpacityDinamic,
+} from '@components';
+import {useAppSafeAreaCustom, useAppThemeCustom} from '@hooks';
+
 import {
   ScrollViewContainerDinamic,
   ViewContainerDinamic,
 } from './containers/ScreenContainers';
-import {useAppThemeCustom} from '../../hooks/useAppTheme';
-import {useNavigation} from '@react-navigation/native';
 
 interface ScreenDinamicProps {
   children: React.ReactNode;

@@ -1,9 +1,10 @@
 import React, {ReactElement, useRef} from 'react';
 import {Pressable, TextInput, TextInputProps} from 'react-native';
-import {BoxDinamic, BoxShopfyProps} from '../Box';
-import {TextDinamic} from '../Text/Text';
+
+import {BoxDinamic, BoxShopfyProps, TextDinamic} from '@components';
+import {useAppThemeCustom} from '@hooks';
+
 import {$textInputStyle} from './styles';
-import {useAppThemeCustom} from '../../hooks/useAppTheme';
 
 export interface TextInputDinamicProps extends TextInputProps {
   label: string;
@@ -44,6 +45,7 @@ const TextInputDinamic = ({
         <BoxDinamic {...$textInputContainer}>
           <TextInput
             ref={inputRef}
+            autoCapitalize="none"
             placeholderTextColor={colors.gray2}
             style={$textInputStyle}
             {...RNTextInputProps}

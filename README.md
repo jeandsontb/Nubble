@@ -39,8 +39,11 @@ As seguintes ferramentas estão sendo utilizadas até essa etapa do projeto:
 - [React-Native][reactnative]
 - [Yarn][yarn]
 - [React-Navigation][navigation]
+- [React-Hook-Form][reacthook]
+- [Zod][zod]
 - [Shopfy-Restyle][style]
 - [Vscode][vscode]
+- [Husky][husky]
 
 
 ## 💡 Como executar o projeto
@@ -88,5 +91,8 @@ Feito por Jeandson Tenorio 👋🏽 [Veja meu perfil no linkedin!](https://www.l
 [vscode]: https://code.visualstudio.com/
 [navigation]:https://reactnavigation.org/
 [axios]:https://axios-http.com/docs/intro
+[reacthook]:https://www.react-hook-form.com/
 [async]:https://react-native-async-storage.github.io/async-storage/docs/install/
 [style]:https://shopify.github.io/restyle/
+[zod]:https://zod.dev/
+[husky]:https://typicode.github.io/husky/

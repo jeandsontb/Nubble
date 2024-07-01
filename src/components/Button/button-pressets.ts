@@ -1,6 +1,7 @@
-import {ButtonPresset} from '.';
 import {ThemeColorTypes} from '../../theme/theme';
 import {TouchableOpacityDinamicProps} from '../Box';
+
+import {ButtonPresset} from '.';
 
 interface ButtonUI {
   container: TouchableOpacityDinamicProps;

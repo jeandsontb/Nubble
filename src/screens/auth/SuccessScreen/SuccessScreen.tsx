@@ -1,10 +1,14 @@
 import React from 'react';
-import {ScreenDinamic} from '../../../components/Screen';
-import {IconDinamic} from '../../../components/Icon';
-import {TextDinamic} from '../../../components/Text/Text';
-import {ButtonDinamic} from '../../../components/Button';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamListTypes} from '../../../routes/Routes';
+
+import {
+  ButtonDinamic,
+  IconDinamic,
+  ScreenDinamic,
+  TextDinamic,
+} from '@components';
+import {RootStackParamListTypes} from '@routes';
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamListTypes,

@@ -1,7 +1,8 @@
 import React from 'react';
 import {ActivityIndicator, ActivityIndicatorProps} from 'react-native';
-import {ThemeColorTypes} from '../../theme/theme';
-import {useAppThemeCustom} from '../../hooks/useAppTheme';
+
+import {useAppThemeCustom} from '@hooks';
+import {ThemeColorTypes} from '@theme';
 
 interface ActivityIndicatorDinamicProps
   extends Omit<ActivityIndicatorProps, 'color'> {

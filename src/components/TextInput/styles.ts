@@ -1,6 +1,7 @@
 import {TextStyle} from 'react-native';
-import {$fontFamily, $fontSizes} from '../Text/Text';
+
 import {theme} from '../../theme/theme';
+import {$fontFamily, $fontSizes} from '../Text/Text';
 
 const {colors} = theme;
 

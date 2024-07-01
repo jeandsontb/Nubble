@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
-import {TextInputDinamic, TextInputDinamicProps} from '../TextInput';
-import {IconDinamic} from '../Icon';
 
-type TextInputPasswordDinamicProps = Omit<
+import {
+  IconDinamic,
+  TextInputDinamic,
+  TextInputDinamicProps,
+} from '@components';
+
+export type TextInputPasswordDinamicProps = Omit<
   TextInputDinamicProps,
   'rightComponent'
 >;

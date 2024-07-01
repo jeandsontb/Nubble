@@ -1,5 +1,7 @@
 import React from 'react';
+
 import {Path, Svg} from 'react-native-svg';
+
 import {IconDinamicBase} from '../../components/Icon';
 
 const ChatIcon = ({size = 20, color = 'grayBlack'}: IconDinamicBase) => {

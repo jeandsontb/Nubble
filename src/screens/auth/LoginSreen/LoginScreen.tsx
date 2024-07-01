@@ -1,11 +1,18 @@
 import React from 'react';
-import {TextDinamic} from '../../../components/Text/Text';
-import {TextInputDinamic} from '../../../components/TextInput';
-import {IconDinamic} from '../../../components/Icon';
-import {ButtonDinamic} from '../../../components/Button';
-import {ScreenDinamic} from '../../../components/Screen';
+
+import {zodResolver} from '@hookform/resolvers/zod';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamListTypes} from '../../../routes/Routes';
+import {useForm} from 'react-hook-form';
+
+import {
+  ButtonDinamic,
+  FormTextInputDinamic,
+  ScreenDinamic,
+  TextDinamic,
+} from '@components';
+import {RootStackParamListTypes} from '@routes';
+
+import {LoginSchemaTypes, loginSchema} from './loginSchema';
 
 type LoginScreenProps = NativeStackScreenProps<
   RootStackParamListTypes,
@@ -13,6 +20,19 @@ type LoginScreenProps = NativeStackScreenProps<
 >;
 
 const LoginScreen = ({navigation}: LoginScreenProps) => {
+  const {control, formState, handleSubmit} = useForm<LoginSchemaTypes>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onChange',
+    resolver: zodResolver(loginSchema),
+  });
+
+  const handleSubmitForm = ({email, password}: LoginSchemaTypes) => {
+    console.log('emais ', email, ' - ', password);
+  };
+
   const navigateToSignUpScreen = () => {
     navigation.navigate('SignUpScreen');
   };
@@ -31,17 +51,19 @@ const LoginScreen = ({navigation}: LoginScreenProps) => {
         Digite seu e-mail e senha para entrar
       </TextDinamic>
 
-      <TextInputDinamic
-        errorMessage="Error de entrada"
+      <FormTextInputDinamic
+        control={control}
+        name="email"
         placeholder="Digite seu e-mail"
         label="E-mail"
         boxProps={{marginBottom: 's20'}}
       />
 
-      <TextInputDinamic
+      <FormTextInputDinamic
+        control={control}
+        name="password"
         placeholder="Digite sua senha"
         label="Senha"
-        rightComponent={<IconDinamic name="eyeOn" color="gray2" />}
         boxProps={{marginBottom: 's10'}}
       />
 
@@ -53,7 +75,12 @@ const LoginScreen = ({navigation}: LoginScreenProps) => {
         Esqueci minha senha
       </TextDinamic>
 
-      <ButtonDinamic title="Entrar" marginTop="s48" />
+      <ButtonDinamic
+        title="Entrar"
+        marginTop="s48"
+        disabled={!formState.isValid}
+        onPress={handleSubmit(handleSubmitForm)}
+      />
       <ButtonDinamic
         onPress={navigateToSignUpScreen}
         title="Criar uma conta"

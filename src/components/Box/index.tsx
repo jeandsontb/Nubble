@@ -1,3 +1,5 @@
+import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+
 import {
   backgroundColor,
   BackgroundColorProps,
@@ -12,8 +14,8 @@ import {
   spacingShorthand,
   SpacingShorthandProps,
 } from '@shopify/restyle';
-import {ThemeTypes} from '../../theme/theme';
-import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+
+import {ThemeTypes} from '@theme';
 
 export const BoxDinamic = createBox<ThemeTypes>();
 export type BoxShopfyProps = React.ComponentProps<typeof BoxDinamic>;

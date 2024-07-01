@@ -1,13 +1,19 @@
 import React from 'react';
 
-import {ScreenDinamic} from '../../../components/Screen';
-import {TextDinamic} from '../../../components/Text/Text';
-import {TextInputDinamic} from '../../../components/TextInput';
-import {ButtonDinamic} from '../../../components/Button';
-import {TextInputPasswordDinamic} from '../../../components/PasswordInput/PasswordInput';
+import {zodResolver} from '@hookform/resolvers/zod';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamListTypes} from '../../../routes/Routes';
-import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
+import {useForm} from 'react-hook-form';
+
+import {
+  ButtonDinamic,
+  FormPasswordTextInputDinamic,
+  FormTextInputDinamic,
+  ScreenDinamic,
+  TextDinamic,
+} from '@components';
+import {RootStackParamListTypes} from '@routes';
+
+import {SignUpSchemaTypes, signUpSchema} from './signUpSchema';
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamListTypes,
@@ -16,17 +22,29 @@ type ScreenProps = NativeStackScreenProps<
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SignUpScreen = ({navigation}: ScreenProps) => {
-  const {reset} = useResetNavigationSuccess();
+  // const {reset} = useResetNavigationSuccess();
 
-  const signUpForm = () => {
-    reset({
-      title: 'Sua conta foi criada com sucesso!',
-      description: 'Agora é só fazer login na plataforma',
-      icon: {
-        name: 'checkRound',
-        color: 'success',
-      },
-    });
+  const {control, formState, handleSubmit} = useForm<SignUpSchemaTypes>({
+    defaultValues: {
+      username: '',
+      fullName: '',
+      email: '',
+      password: '',
+    },
+    mode: 'onChange',
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const signUpForm = (formValues: SignUpSchemaTypes) => {
+    console.log('fosadfa ', formValues);
+    // reset({
+    //   title: 'Sua conta foi criada com sucesso!',
+    //   description: 'Agora é só fazer login na plataforma',
+    //   icon: {
+    //     name: 'checkRound',
+    //     color: 'success',
+    //   },
+    // });
   };
 
   return (
@@ -35,29 +53,44 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
         Criar uma conta
       </TextDinamic>
 
-      <TextInputDinamic
+      <FormTextInputDinamic
+        control={control}
+        name="username"
         label="Seu username"
         placeholder="@"
         boxProps={{mb: 's20'}}
       />
-      <TextInputDinamic
+
+      <FormTextInputDinamic
+        control={control}
+        name="fullName"
         label="Nome completo"
         placeholder="Digite seu nome completo"
+        autoCapitalize="words"
         boxProps={{mb: 's20'}}
       />
-      <TextInputDinamic
+
+      <FormTextInputDinamic
+        control={control}
+        name="email"
         label="E-mail"
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}
       />
 
-      <TextInputPasswordDinamic
+      <FormPasswordTextInputDinamic
+        control={control}
+        name="password"
         label="Senha"
         placeholder="Digite sua senha"
         boxProps={{mb: 's48'}}
       />
 
-      <ButtonDinamic onPress={signUpForm} title="Criar uma conta" />
+      <ButtonDinamic
+        title="Criar uma conta"
+        disabled={!formState.isValid}
+        onPress={handleSubmit(signUpForm)}
+      />
     </ScreenDinamic>
   );
 };

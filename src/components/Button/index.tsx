@@ -1,8 +1,13 @@
 import React from 'react';
-import {TextDinamic} from '../Text/Text';
-import {TouchableOpacityDinamic, TouchableOpacityDinamicProps} from '../Box';
+
+import {
+  TouchableOpacityDinamicProps,
+  TouchableOpacityDinamic,
+  ActivityIndicatorDinamic,
+  TextDinamic,
+} from '@components';
+
 import {buttonPresets} from './button-pressets';
-import {ActivityIndicatorDinamic} from '../ActivityIndicator';
 
 export type ButtonPresset = 'primary' | 'outline';
 
