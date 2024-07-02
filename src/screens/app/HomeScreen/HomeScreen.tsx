@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 
-import {ButtonDinamic, ScreenDinamic, TextDinamic} from '@components';
-import {AppScreenProps} from '@routes';
+import {Post, postService} from '@domain';
 
-const HomeScreen = ({navigation}: AppScreenProps<'HomeScreen'>) => {
+import {PostItem, ScreenDinamic} from '@components';
+import {AppTabScreenProps} from '@routes';
+
+import {HomeHeader} from './components/HomeHeader';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const HomeScreen = ({navigation}: AppTabScreenProps<'HomeScreen'>) => {
+  const [postList, setPostList] = useState<Post[]>([]);
+
+  useEffect(() => {
+    postService.getList().then(list => setPostList(list));
+  }, []);
+
+  function renderItem({item}: ListRenderItemInfo<Post>) {
+    return <PostItem post={item} />;
+  }
+
   return (
-    <ScreenDinamic>
-      <TextDinamic preset="headingLarge">Home Screen</TextDinamic>
-      <ButtonDinamic
-        title="Settings"
-        onPress={() => navigation.navigate('SettingsScreen')}
+    <ScreenDinamic
+      style={{paddingBottom: 0, paddingTop: 0, paddingHorizontal: 0}}>
+      <FlatList
+        data={postList}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<HomeHeader />}
       />
     </ScreenDinamic>
   );

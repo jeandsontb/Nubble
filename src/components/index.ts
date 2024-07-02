@@ -8,3 +8,4 @@ export * from './PasswordInput/PasswordInput';
 export * from './Screen';
 export * from './Text/Text';
 export * from './TextInput';
+export * from './PostItem/PostItem';

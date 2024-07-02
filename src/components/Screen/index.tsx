@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import {
   BoxDinamic,
+  BoxShopfyProps,
   IconDinamic,
   TextDinamic,
   TouchableOpacityDinamic,
@@ -16,7 +17,7 @@ import {
   ViewContainerDinamic,
 } from './containers/ScreenContainers';
 
-interface ScreenDinamicProps {
+interface ScreenDinamicProps extends BoxShopfyProps {
   children: React.ReactNode;
   canGoBack?: boolean;
   scrollable?: boolean;
@@ -26,6 +27,8 @@ const ScreenDinamic = ({
   canGoBack = false,
   scrollable = false,
   children,
+  style,
+  ...boxShopfyProps
 }: ScreenDinamicProps) => {
   const {top, bottom} = useAppSafeAreaCustom();
   const {colors} = useAppThemeCustom();
@@ -42,9 +45,9 @@ const ScreenDinamic = ({
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Container backgroundColor={colors.background}>
         <BoxDinamic
-          paddingBottom="s24"
           paddingHorizontal="s24"
-          style={{paddingTop: top, paddingBottom: bottom}}>
+          style={[{paddingTop: top, paddingBottom: bottom}, style]}
+          {...boxShopfyProps}>
           {canGoBack && (
             <TouchableOpacityDinamic
               mb="s24"
