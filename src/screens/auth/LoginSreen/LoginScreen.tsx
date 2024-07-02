@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {zodResolver} from '@hookform/resolvers/zod';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useForm} from 'react-hook-form';
 
 import {
@@ -10,16 +9,11 @@ import {
   ScreenDinamic,
   TextDinamic,
 } from '@components';
-import {RootStackParamListTypes} from '@routes';
+import {AuthScreenProps} from '@routes';
 
 import {LoginSchemaTypes, loginSchema} from './loginSchema';
 
-type LoginScreenProps = NativeStackScreenProps<
-  RootStackParamListTypes,
-  'LoginScreen'
->;
-
-const LoginScreen = ({navigation}: LoginScreenProps) => {
+const LoginScreen = ({navigation}: AuthScreenProps<'LoginScreen'>) => {
   const {control, formState, handleSubmit} = useForm<LoginSchemaTypes>({
     defaultValues: {
       email: '',
