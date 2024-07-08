@@ -1,5 +1,5 @@
 export interface Post {
-  id: string;
+  id: number;
   text: string;
   author: {
     profileURL: string;
@@ -39,7 +39,7 @@ export interface PostApi {
   };
 }
 
-export interface PageParams {
-  page?: number;
-  per_page?: number;
-}
+// export interface PageParams {
+//   page?: number;
+//   per_page?: number;
+// }

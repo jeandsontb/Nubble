@@ -1,26 +1,20 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-
-import {
-  BoxDinamic,
-  BoxShopfyProps,
-  IconDinamic,
-  TextDinamic,
-  TouchableOpacityDinamic,
-} from '@components';
+import {BoxDinamic, BoxShopfyProps} from '@components';
 import {useAppSafeAreaCustom, useAppThemeCustom} from '@hooks';
 
 import {
+  ScreenHeader,
   ScrollViewContainerDinamic,
   ViewContainerDinamic,
-} from './containers/ScreenContainers';
+} from './containers';
 
-interface ScreenDinamicProps extends BoxShopfyProps {
+export interface ScreenDinamicProps extends BoxShopfyProps {
   children: React.ReactNode;
   canGoBack?: boolean;
   scrollable?: boolean;
+  title?: string;
 }
 
 const ScreenDinamic = ({
@@ -28,12 +22,11 @@ const ScreenDinamic = ({
   scrollable = false,
   children,
   style,
+  title,
   ...boxShopfyProps
 }: ScreenDinamicProps) => {
   const {top, bottom} = useAppSafeAreaCustom();
   const {colors} = useAppThemeCustom();
-
-  const navigation = useNavigation();
 
   const Container = scrollable
     ? ScrollViewContainerDinamic
@@ -48,18 +41,7 @@ const ScreenDinamic = ({
           paddingHorizontal="s24"
           style={[{paddingTop: top, paddingBottom: bottom}, style]}
           {...boxShopfyProps}>
-          {canGoBack && (
-            <TouchableOpacityDinamic
-              mb="s24"
-              flexDirection="row"
-              alignItems="center"
-              onPress={navigation.goBack}>
-              <IconDinamic name="arrowLeft" color="primary" />
-              <TextDinamic preset="paragraphMedium" semiBold ml="s8">
-                Voltar
-              </TextDinamic>
-            </TouchableOpacityDinamic>
-          )}
+          <ScreenHeader canGoBack={canGoBack} title={title} />
           {children}
         </BoxDinamic>
       </Container>

@@ -9,3 +9,5 @@ export * from './Screen';
 export * from './Text/Text';
 export * from './TextInput';
 export * from './PostItem/PostItem';
+export * from './ProfileAvatar/ProfileAvatar';
+export * from './TestMessage/TestMessage';
