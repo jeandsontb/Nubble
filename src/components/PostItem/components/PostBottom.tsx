@@ -13,6 +13,7 @@ const PostBotton = ({author, text, commentCount, id}: PostButtonProps) => {
   function navigateToPostCommentScreen() {
     navigation.navigate('PostCommentScreen', {
       postId: id,
+      postAuthorId: author.id,
     });
   }
 
