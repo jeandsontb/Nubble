@@ -11,3 +11,4 @@ export * from './TextInput';
 export * from './PostItem/PostItem';
 export * from './ProfileAvatar/ProfileAvatar';
 export * from './TestMessage/TestMessage';
+export * from './Toast/Toast';

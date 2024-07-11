@@ -6,3 +6,5 @@ export * from './Post/postApi';
 export * from './PostComment';
 
 export * from './Auth';
+
+export * from './User';
