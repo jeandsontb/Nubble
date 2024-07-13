@@ -1,13 +1,20 @@
 import React from 'react';
 
-import {ScreenDinamic, TextDinamic} from '@components';
+import {useAuthSignOut} from '@domain';
+
+import {ButtonDinamic, ScreenDinamic} from '@components';
 import {AppScreenProps} from '@routes';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SettingsScreen = ({navigation}: AppScreenProps<'SettingsScreen'>) => {
+const SettingsScreen = ({}: AppScreenProps<'SettingsScreen'>) => {
+  const {isLoading, signOut} = useAuthSignOut();
+
   return (
-    <ScreenDinamic canGoBack>
-      <TextDinamic preset="headingLarge">Settings Screen</TextDinamic>
+    <ScreenDinamic canGoBack title="Configurações">
+      <ButtonDinamic
+        title="Sair da conta"
+        loading={isLoading}
+        onPress={signOut}
+      />
     </ScreenDinamic>
   );
 };

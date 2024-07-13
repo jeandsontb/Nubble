@@ -1,13 +1,28 @@
 import React from 'react';
 
-import {ScreenDinamic, TextDinamic} from '@components';
+import {useAuthCredentialsService} from '@services';
+
+import {BoxDinamic, IconDinamic, ScreenDinamic, TextDinamic} from '@components';
 import {AppTabScreenProps} from '@routes';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const MyProfileScreen = (props: AppTabScreenProps<'MyProfileScreen'>) => {
+const MyProfileScreen = ({
+  navigation,
+}: AppTabScreenProps<'MyProfileScreen'>) => {
+  const {authCredentials} = useAuthCredentialsService();
+  const name = authCredentials?.user.fullName;
+
   return (
     <ScreenDinamic>
-      <TextDinamic preset="headingLarge">My profile screen</TextDinamic>
+      <BoxDinamic
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center">
+        {name && <TextDinamic preset="headingMedium">{name}</TextDinamic>}
+        <IconDinamic
+          name="settings"
+          onPress={() => navigation.navigate('SettingsScreen')}
+        />
+      </BoxDinamic>
     </ScreenDinamic>
   );
 };

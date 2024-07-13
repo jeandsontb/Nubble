@@ -1,6 +1,8 @@
 import React from 'react';
 
+import {useAuthSignIn} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
 import {
@@ -14,6 +16,13 @@ import {AuthScreenProps} from '@routes';
 import {LoginSchemaTypes, loginSchema} from './loginSchema';
 
 const LoginScreen = ({navigation}: AuthScreenProps<'LoginScreen'>) => {
+  const {showToast} = useToastService();
+
+  // FUNÇÃO DO REACT QUERY
+  const {isLoading, signIn} = useAuthSignIn({
+    onError: message => showToast({message, type: 'error'}),
+  });
+
   const {control, formState, handleSubmit} = useForm<LoginSchemaTypes>({
     defaultValues: {
       email: '',
@@ -24,7 +33,7 @@ const LoginScreen = ({navigation}: AuthScreenProps<'LoginScreen'>) => {
   });
 
   const handleSubmitForm = ({email, password}: LoginSchemaTypes) => {
-    console.log('emais ', email, ' - ', password);
+    signIn({email, password});
   };
 
   const navigateToSignUpScreen = () => {
@@ -70,6 +79,7 @@ const LoginScreen = ({navigation}: AuthScreenProps<'LoginScreen'>) => {
       </TextDinamic>
 
       <ButtonDinamic
+        loading={isLoading}
         title="Entrar"
         marginTop="s48"
         disabled={!formState.isValid}
