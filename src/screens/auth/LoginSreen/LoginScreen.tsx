@@ -7,6 +7,7 @@ import {useForm} from 'react-hook-form';
 
 import {
   ButtonDinamic,
+  FormPasswordTextInputDinamic,
   FormTextInputDinamic,
   ScreenDinamic,
   TextDinamic,
@@ -57,12 +58,13 @@ const LoginScreen = ({navigation}: AuthScreenProps<'LoginScreen'>) => {
       <FormTextInputDinamic
         control={control}
         name="email"
+        keyboardType="email-address"
         placeholder="Digite seu e-mail"
         label="E-mail"
         boxProps={{marginBottom: 's20'}}
       />
 
-      <FormTextInputDinamic
+      <FormPasswordTextInputDinamic
         control={control}
         name="password"
         placeholder="Digite sua senha"
