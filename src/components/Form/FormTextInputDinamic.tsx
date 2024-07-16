@@ -6,6 +6,7 @@ export function FormTextInputDinamic<FormType extends FieldValues>({
   control,
   name,
   rules,
+  errorMessage,
   ...textInputProps
 }: TextInputDinamicProps & UseControllerProps<FormType>) {
   return (
@@ -17,7 +18,7 @@ export function FormTextInputDinamic<FormType extends FieldValues>({
         <TextInputDinamic
           value={field.value}
           onChangeText={field.onChange}
-          errorMessage={fieldState.error?.message}
+          errorMessage={fieldState.error?.message || errorMessage}
           {...textInputProps}
         />
       )}

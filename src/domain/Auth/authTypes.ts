@@ -18,3 +18,28 @@ export interface SignInData {
   email?: string;
   password: string;
 }
+
+export interface SignUpDataAPI {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface SignUpData {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface ForgotPasswordParam {
+  email: string;
+}
+
+export interface FieldIsAvailableAPI {
+  message: string;
+  isAvailable: boolean;
+}

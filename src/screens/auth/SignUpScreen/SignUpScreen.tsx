@@ -1,5 +1,7 @@
 import React from 'react';
+import {ActivityIndicator} from 'react-native';
 
+import {useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
@@ -10,36 +12,52 @@ import {
   ScreenDinamic,
   TextDinamic,
 } from '@components';
-import {AuthScreenProps} from '@routes';
+import {useResetNavigationSuccess} from '@hooks';
+import {AuthScreenProps, AuthStackParamListTypes} from '@routes';
 
 import {SignUpSchemaTypes, signUpSchema} from './signUpSchema';
+import {useAsyncValidation} from './useAsyncValidation';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SignUpScreen = ({navigation}: AuthScreenProps<'SignUpScreen'>) => {
-  // const {reset} = useResetNavigationSuccess();
+const resetParam: AuthStackParamListTypes['SuccessScreen'] = {
+  title: 'Sua conta foi criada com sucesso!',
+  description: 'Agora é só fazer login na plataforma',
+  icon: {
+    name: 'checkRound',
+    color: 'success',
+  },
+};
 
-  const {control, formState, handleSubmit} = useForm<SignUpSchemaTypes>({
-    defaultValues: {
-      username: '',
-      fullName: '',
-      email: '',
-      password: '',
+const defaultValues: SignUpSchemaTypes = {
+  username: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+};
+
+const SignUpScreen = ({}: AuthScreenProps<'SignUpScreen'>) => {
+  const {reset} = useResetNavigationSuccess();
+  const {signUp, isLoading} = useAuthSignUp({
+    onSuccess: () => {
+      reset(resetParam);
     },
-    mode: 'onChange',
-    resolver: zodResolver(signUpSchema),
   });
 
+  const {control, formState, handleSubmit, watch, getFieldState} =
+    useForm<SignUpSchemaTypes>({
+      defaultValues: defaultValues,
+      mode: 'onChange',
+      resolver: zodResolver(signUpSchema),
+    });
+
   const signUpForm = (formValues: SignUpSchemaTypes) => {
-    console.log('fosadfa ', formValues);
-    // reset({
-    //   title: 'Sua conta foi criada com sucesso!',
-    //   description: 'Agora é só fazer login na plataforma',
-    //   icon: {
-    //     name: 'checkRound',
-    //     color: 'success',
-    //   },
-    // });
+    signUp(formValues);
   };
+
+  const {usernameValidation, emailValidation} = useAsyncValidation({
+    watch,
+    getFieldState,
+  });
 
   return (
     <ScreenDinamic canGoBack scrollable>
@@ -52,14 +70,29 @@ const SignUpScreen = ({navigation}: AuthScreenProps<'SignUpScreen'>) => {
         name="username"
         label="Seu username"
         placeholder="@"
+        errorMessage={usernameValidation.errorMessage}
+        boxProps={{mb: 's20'}}
+        rightComponent={
+          usernameValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
+      />
+
+      <FormTextInputDinamic
+        control={control}
+        name="firstName"
+        label="Primeiro nome"
+        placeholder="Digite seu nome"
+        autoCapitalize="words"
         boxProps={{mb: 's20'}}
       />
 
       <FormTextInputDinamic
         control={control}
-        name="fullName"
-        label="Nome completo"
-        placeholder="Digite seu nome completo"
+        name="lastName"
+        label="Sobrenome"
+        placeholder="Digite seu sobrenome"
         autoCapitalize="words"
         boxProps={{mb: 's20'}}
       />
@@ -68,8 +101,14 @@ const SignUpScreen = ({navigation}: AuthScreenProps<'SignUpScreen'>) => {
         control={control}
         name="email"
         label="E-mail"
+        errorMessage={emailValidation.errorMessage}
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}
+        rightComponent={
+          emailValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormPasswordTextInputDinamic
@@ -82,7 +121,12 @@ const SignUpScreen = ({navigation}: AuthScreenProps<'SignUpScreen'>) => {
 
       <ButtonDinamic
         title="Criar uma conta"
-        disabled={!formState.isValid}
+        loading={isLoading}
+        disabled={
+          !formState.isValid ||
+          usernameValidation.notReady ||
+          emailValidation.notReady
+        }
         onPress={handleSubmit(signUpForm)}
       />
     </ScreenDinamic>
