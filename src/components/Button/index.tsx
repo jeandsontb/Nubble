@@ -11,7 +11,7 @@ import {buttonPresets} from './button-pressets';
 
 export type ButtonPresset = 'primary' | 'outline';
 
-interface ButtonDinamicProps extends TouchableOpacityDinamicProps {
+export interface ButtonDinamicProps extends TouchableOpacityDinamicProps {
   title: string;
   loading?: boolean;
   preset?: ButtonPresset;
@@ -29,6 +29,7 @@ const ButtonDinamic = ({
 
   return (
     <TouchableOpacityDinamic
+      testID="button"
       disabled={disabled || loading}
       paddingHorizontal="s20"
       height={50}

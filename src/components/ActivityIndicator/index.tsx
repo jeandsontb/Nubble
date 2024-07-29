@@ -9,10 +9,19 @@ interface ActivityIndicatorDinamicProps
   color: ThemeColorTypes;
 }
 
-const ActivityIndicatorDinamic = ({color}: ActivityIndicatorDinamicProps) => {
+const ActivityIndicatorDinamic = ({
+  color = 'primary',
+  ...rest
+}: ActivityIndicatorDinamicProps) => {
   const {colors} = useAppThemeCustom();
 
-  return <ActivityIndicator color={colors[color]} />;
+  return (
+    <ActivityIndicator
+      testID="activity-indicator"
+      color={colors[color]}
+      {...rest}
+    />
+  );
 };
 
 export {ActivityIndicatorDinamic};
