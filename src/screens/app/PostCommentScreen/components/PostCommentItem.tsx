@@ -9,7 +9,7 @@ import {BoxDinamic, ProfileAvatar, TextDinamic} from '@components';
 interface PostCommentItemProps {
   postId: number;
   postComment: PostComment;
-  userId: number;
+  userId: number | null;
   postAuthorId: number;
 }
 
@@ -48,7 +48,10 @@ const PostCommentItem = ({
   }
 
   return (
-    <Pressable disabled={!isAllowToDelete} onLongPress={confirmRemove}>
+    <Pressable
+      testID="post-comment-id"
+      disabled={!isAllowToDelete}
+      onLongPress={confirmRemove}>
       <BoxDinamic flexDirection="row" alignItems="center" mb="s16">
         <ProfileAvatar imageURL={postComment.author.profileURL} />
         <BoxDinamic ml="s12" flex={1}>
