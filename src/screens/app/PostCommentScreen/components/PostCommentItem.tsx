@@ -49,7 +49,7 @@ const PostCommentItem = ({
 
   return (
     <Pressable
-      testID="post-comment-id"
+      testID={'post-comment-id'}
       disabled={!isAllowToDelete}
       onLongPress={confirmRemove}>
       <BoxDinamic flexDirection="row" alignItems="center" mb="s16">

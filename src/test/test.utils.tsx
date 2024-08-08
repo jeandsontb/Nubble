@@ -15,6 +15,7 @@ import {
   RenderHookOptions,
 } from '@testing-library/react-native';
 
+import {Toast} from '@components';
 import {theme} from '@theme';
 
 const queryClientConfig: QueryClientConfig = {
@@ -62,7 +63,8 @@ export const wrapperScreensProviders = () => {
     <AuthCredentialProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <NavigationContainer>{children}</NavigationContainer>{' '}
+          <NavigationContainer>{children}</NavigationContainer>
+          <Toast />
         </ThemeProvider>
       </QueryClientProvider>
     </AuthCredentialProvider>
@@ -73,7 +75,7 @@ export function renderScreen<T = unknown>(
   component: ReactElement<T>,
   options?: Omit<RenderOptions, 'wrapper'>,
 ) {
-  return render(component, {wrapper: wrapperAllProviders(), ...options});
+  return render(component, {wrapper: wrapperScreensProviders(), ...options});
 }
 
 function customRenderHook<Result, Props>(

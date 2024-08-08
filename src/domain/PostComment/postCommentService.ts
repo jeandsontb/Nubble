@@ -45,7 +45,7 @@ function isAllowToDelete(
   userId: number | null,
   postAuthorId: number,
 ): boolean {
-  if (postComment.id === postAuthorId) {
+  if (postComment.author.id === userId) {
     return true;
   }
 
